@@ -1,0 +1,13 @@
+{
+  "name": "mihoyo-signin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@code.aliyun.com:jianggc/mihoyo-signin.git",
+  "author": "jianggaocheng <jianggaocheng@hotmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.20",
+    "md5": "^2.3.0",
+    "superagent": "^6.1.0"
+  }
+}
