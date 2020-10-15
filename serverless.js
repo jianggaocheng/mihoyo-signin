@@ -6,4 +6,6 @@ const init = async function() {
   await mihoyoClient.readForumPosts();
 };
 
-init();
+exports.handler = async (event, context, callback) => {
+  await init();
+}
