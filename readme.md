@@ -9,7 +9,6 @@
 ### 安装依赖
 ```
 yarn install
-
 ```
 
 ### 获取 cookie
