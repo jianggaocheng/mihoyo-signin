@@ -33,5 +33,5 @@ node index.js
 
 ### 感谢
 受 https://github.com/lhllhx/miyoubi 项目启发  
-感谢 https://github.com/lhllhx/miyoubi 的作者 @lhllhx  
-感谢 @2314933036 提供了签名 DS 字段的加密算法  
+感谢 https://github.com/lhllhx/miyoubi 的作者 [@lhllhx](https://github.com/lhllhx)
+感谢 [@2314933036](https://github.com/2314933036) 提供了签名 DS 字段的加密算法  
