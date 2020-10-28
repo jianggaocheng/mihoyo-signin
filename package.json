@@ -6,6 +6,7 @@
   "author": "jianggaocheng <jianggaocheng@hotmail.com>",
   "license": "MIT",
   "dependencies": {
+    "cookie": "^0.4.1",
     "lodash": "^4.17.20",
     "md5": "^2.3.0",
     "superagent": "^6.1.0"
