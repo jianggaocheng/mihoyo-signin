@@ -1,0 +1,21 @@
+name: "Mihoyo SignIn"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 8 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: install packages 
+        run: npm install
+      - name: run sign
+        run: node index.js
+        env:
+          COOKIE_STRING: ${{secrets.COOKIE_STRING}}
