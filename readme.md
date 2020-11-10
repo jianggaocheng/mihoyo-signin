@@ -7,6 +7,7 @@
 
 ## 更新记录  
 [2020.11.10] 重新加回本地运行的说明，修改了 cookie 的获取，重构代码加入随机延时防止检测
+
 [2020.11.02] 受 https://github.com/y1ndan/genshin-impact-helper 启发，支持 workflow 运行，每天 8 点定时进行签到
 
 ## 快速入门
