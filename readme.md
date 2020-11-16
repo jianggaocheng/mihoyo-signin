@@ -1,6 +1,4 @@
 # Mihoyo sign in
-*2020.11.16 发现一段时间后 Cookie 失效的问题，目前正在 fix*
-
 自动完成米游币任务
 - 论坛区签到
 - 阅读帖子
@@ -8,21 +6,19 @@
 - 分享帖子
 
 ## 安全提醒  
-Workflow 是所有注册用户都可见的，包括 log，在旧版本中有一些 log 可能会泄露你们的 cookie string，请所有运行旧版本的及时更换成新版本，
+1 Workflow 是所有注册用户都可见的，包括 log，在旧版本中有一些 log 可能会泄露你们的 cookie string，请所有运行旧版本的及时更换成新版本，
 并且修改现有 mihoyo 账户密码！！！
 
-Workflow 是所有注册用户都可见的，包括 log，在旧版本中有一些 log 可能会泄露你们的 cookie string，请所有运行旧版本的及时更换成新版本，
-并且修改现有 mihoyo 账户密码！！！
+2 目前仅调用了米游币任务所必须的接口，并未 100% 模拟读取帖子点赞的所有流程，存在一定不可知的风险，请使用前务必知晓，下一步的开发会尝试尽可能模拟手动做任务的全部接口调用。
 
-Workflow 是所有注册用户都可见的，包括 log，在旧版本中有一些 log 可能会泄露你们的 cookie string，请所有运行旧版本的及时更换成新版本，
-并且修改现有 mihoyo 账户密码！！！
+## 更新记录 
+[2020.11.16] 修复一时间后 cookie 失效的问题，重构部分代码以支持后期优化。
 
-## 更新记录  
-[2020.11.14] 感谢 [@lhllhx](https://github.com/lhllhx) 提醒，删除可能泄露 Cookie 的 log
+[2020.11.14] 感谢 [@lhllhx](https://github.com/lhllhx) 提醒，删除可能泄露 Cookie 的 log。
 
-[2020.11.10] 重新加回本地运行的说明，修改了 cookie 的获取，重构代码加入随机延时防止检测
+[2020.11.10] 重新加回本地运行的说明，修改了 cookie 的获取，重构代码加入随机延时防止检测。
 
-[2020.11.02] 受 https://github.com/y1ndan/genshin-impact-helper 启发，支持 workflow 运行，每天 8 点定时进行签到
+[2020.11.02] 受 https://github.com/y1ndan/genshin-impact-helper 启发，支持 workflow 运行，每天 8 点定时进行签到。
 
 ## 快速入门
 
@@ -47,7 +43,7 @@ node cookie.js '*******第二步的login_ticket*******'
 ### 本地运行
 在运行 cookie.js 的时候，控制台会返回一个 cookie string 的命令，直接拷贝到控制台继续运行即可
 ```bash
-COOKIE_STRING='{"stuid":"*******","stoken":"**************","login_ticket":"**************"}' node index.js
+COOKIE_STRING='stuid=*******;stoken=****************;login_ticket=********************;' node index.js
 ```
 
 ## Workflow 运行 (自由选择)

@@ -50,7 +50,7 @@ const init = async (loginTicket) => {
     'login_ticket': loginTicket
   };
 
-  console.log(`COOKIE_STRING='${JSON.stringify(cookieData)}' node index.js`);
+  console.log(`COOKIE_STRING='${stringifyCookie(cookieData)}' node index.js`);
 };
 
 init(arguments[0]);
