@@ -24,7 +24,7 @@
 
 ### 安装依赖
 ```
-yarn install
+yarn
 ```
 
 ### 获取 cookie （一般来说只有初次运行需要，如 token 过期重做此步即可）
@@ -46,7 +46,7 @@ node cookie.js '*******第二步的login_ticket*******'
 COOKIE_STRING='stuid=*******;stoken=****************;login_ticket=********************;' node index.js
 ```
 
-## Workflow 运行 (自由选择)
+## Workflow 运行 (谨慎选择)
 ### Fork 项目  
 
 项目地址：https://github.com/jianggaocheng/mihoyo-signin  
@@ -62,13 +62,24 @@ COOKIE_STRING='stuid=*******;stoken=****************;login_ticket=**************
 
 > Actions 默认为关闭状态，Fork 之后需要手动执行一次，若成功运行其才会激活。
 
-返回项目主页面，点击上方的`Actions`，再点击左侧的`Genshin Impact Helper`，再点击`Run workflow`
+返回项目主页面，点击上方的`Actions`，再点击左侧的`Mihoyo sign in`，再点击`Run workflow`
 
 至此，部署完毕。
 
 ### 查看结果
 
-当你完成上述流程，可以在 `Actions` 页面点击 `Genshin Impact Helper` --> `build` --> `run sign`查看结果。
+当你完成上述流程，可以在 `Actions` 页面点击 `Mihoyo sign in` --> `build` --> `run sign`查看结果。
+
+### 更新程序
+
+因为程序目前还在不断更新中，因此你 Fork 的仓库需要及时更新，更新的步骤如下。
+
+```
+git clone https://github.com/<Your GitHub ID>/mihoyo-signin.git
+cd ./mihoyo-signin
+git pull https://github.com/jianggaocheng/mihoyo-signin.git master
+git push origin master
+```
 
 ## 感谢
 受 https://github.com/lhllhx/miyoubi 项目启发  
