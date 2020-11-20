@@ -1,6 +1,6 @@
 const superagent = require('superagent');
 const util = require('util');
-const MihoyoClient = require("./lib/mihoyoClient");
+// const MihoyoClient = require("./lib/mihoyoClient");
 const _ = require('lodash');
 const cookie = require('cookie');
 
