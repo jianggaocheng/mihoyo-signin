@@ -1,4 +1,7 @@
 # Mihoyo sign in
+
+![badge](https://github.com/jianggaocheng/mihoyo-signin/workflows/Mihoyo%20SignIn/badge.svg)
+
 自动完成米游币任务
 - 论坛区签到
 - 阅读帖子
