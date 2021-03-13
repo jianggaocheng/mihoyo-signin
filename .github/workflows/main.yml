@@ -16,7 +16,7 @@ jobs:
       - name: install packages 
         run: npm install
       - name: run sign
-        run: node index.js > log.txt
+        run: node index.js > log_bbs.txt
         env:
           COOKIE_STRING: ${{secrets.COOKIE_STRING}}
 
@@ -27,8 +27,8 @@ jobs:
           server_port: 465
           username: ${{ secrets.MAIL_USERNAME_SEND }}
           password: ${{ secrets.MAIL_PASSWORD_SEND }}
-          subject: miho
-          body: file://log.txt
+          subject: mihoBBS每日签到
+          body: file://log_bbs.txt
           to: ${{ secrets.MAIL_USERNAME_GET }}
           from: My 126 mail
           content_type: text/html
