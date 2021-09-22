@@ -34,7 +34,9 @@ yarn
 
 ### 获取 cookie (20210922 该方法已失效，请使用抓包工具获取 stuid, stoken, login_ticket)
 ~~1, 登录 https://bbs.mihoyo.com/ys/, 如果已经登录需要退出再重新登录。~~
+
 ~~2, 在控制台输入以下指令, 取得 login_ticket, 并将结果复制~~
+
 ~~3, 本地运行 cookie.js, 传入上一步的 login_ticket, 获取用于爬虫的 stoken~~
 
 ### 本地运行
