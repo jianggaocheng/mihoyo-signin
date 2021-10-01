@@ -3,7 +3,7 @@ name: "Mihoyo SignIn"
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 22 * * *"
+    - cron: "05 02 * * *"
 
 jobs:
   build:
@@ -16,6 +16,19 @@ jobs:
       - name: install packages 
         run: npm install
       - name: run sign
-        run: node index.js
+        run: node index.js > log_bbs.txt
         env:
           COOKIE_STRING: ${{secrets.COOKIE_STRING}}
+
+      - name: 'Send mail'
+        uses: dawidd6/action-send-mail@master
+        with:
+          server_address: smtp.126.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME_SEND }}
+          password: ${{ secrets.MAIL_PASSWORD_SEND }}
+          subject: mihoBBS每日签到
+          body: file://log_bbs.txt
+          to: ${{ secrets.MAIL_USERNAME_GET }}
+          from: My 126 mail
+          content_type: text/html
