@@ -5,7 +5,7 @@ on:
   push:
     branches: [ master ]
   schedule:
-    - cron: "0 22 * * *"
+    - cron: "0 21 * * *"
 
 jobs:
   build:
