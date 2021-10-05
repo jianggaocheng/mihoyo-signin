@@ -9,7 +9,6 @@ const forumPostList = require('./lib/mihoyo/forum-post-list');
 const forumPostDetail = require('./lib/mihoyo/forum-post-detail');
 const forumPostVote = require('./lib/mihoyo/forum-post-vote');
 const forumPostShare = require('./lib/mihoyo/forum-post-share');
-const { post } = require('superagent');
 
 // Init
 require('./lib/global').init();
@@ -27,13 +26,17 @@ const init = async function() {
     await utils.randomSleepAsync();
 
     await async.eachSeries(postList, async ({post}) => {
-      await forumPostDetail(post);
+      try {
+        await forumPostDetail(post);
 
-      await utils.randomSleepAsync();
-
-      await forumPostVote(post);
-
-      await utils.randomSleepAsync();
+        await utils.randomSleepAsync();
+  
+        await forumPostVote(post);
+  
+        await utils.randomSleepAsync();
+      } catch (e) {
+        console.error("请求失败", e);
+      }
     });
 
     let sharePost = postList[postList.length - 1];
