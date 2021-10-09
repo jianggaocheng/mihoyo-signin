@@ -20,3 +20,7 @@ jobs:
         env:
           COOKIE_STRING: ${{secrets.COOKIE_STRING}}
           QY_WECHAT: ${{secrets.QY_WECHAT}}
+      - uses: actions/upload-artifact@v2
+        with:
+          name: mihoyo-log
+          path: log/mihoyo.log
