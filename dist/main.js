@@ -142,7 +142,7 @@ let resultMessage = `**Mihoyo 签到  ${TODAY_DATE}**\n\n`;
         yield utils_1.default.randomSleepAsync();
     }
     const END = moment_1.default().unix();
-    logger_1.default.info(`运行结束, 用时 ${lodash_1.default.floor((END - START) / 1000)} 秒`);
-    resultMessage += `\n用时 ${lodash_1.default.floor((END - START) / 1000)} 秒`;
+    logger_1.default.info(`运行结束, 用时 ${END - START} 秒`);
+    resultMessage += `\n用时 ${END - START} 秒`;
     sendReport(resultMessage);
 }))();

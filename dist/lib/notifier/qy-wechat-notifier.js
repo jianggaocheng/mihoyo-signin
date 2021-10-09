@@ -29,7 +29,7 @@ class QyWechatNotifier {
                     content: message
                 }
             };
-            logger_1.default.debug(`Send push ${this.webHook} ${JSON.stringify(form)}`);
+            logger_1.default.debug(`Send push ${JSON.stringify(form)}`);
             let pushResult = yield superagent_1.default
                 .post(this.webHook)
                 .set('Content-Type', 'application/json')

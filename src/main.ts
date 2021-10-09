@@ -125,7 +125,7 @@ let resultMessage = `**Mihoyo 签到  ${TODAY_DATE}**\n\n`;
   }
 
   const END = moment().unix();
-  logger.info(`运行结束, 用时 ${_.floor((END - START) / 1000)} 秒`);
-  resultMessage += `\n用时 ${_.floor((END - START) / 1000)} 秒`;
+  logger.info(`运行结束, 用时 ${END - START} 秒`);
+  resultMessage += `\n用时 ${END - START} 秒`;
   sendReport(resultMessage);
 })();
