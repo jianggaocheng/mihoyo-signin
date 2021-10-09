@@ -1,0 +1,1 @@
+declare function sendReport(message: string): void;

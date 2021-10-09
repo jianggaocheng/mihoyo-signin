@@ -15,6 +15,8 @@
 2 目前仅调用了米游币任务所必须的接口，并未 100% 模拟读取帖子点赞的所有流程，存在一定不可知的风险，请使用前务必知晓，下一步的开发会尝试尽可能模拟手动做任务的全部接口调用。
 
 ## 更新记录 
+[2021.10.09] 重构部分代码，加入企业微信消息通知。
+
 [2021.09.22] 通过网页获取 cookie 的方式已失效，请通过抓包方式获取 App 使用的 cookie。
 
 [2020.11.16] 修复一时间后 cookie 失效的问题，重构部分代码以支持后期优化。
@@ -39,10 +41,16 @@ yarn
 
 ~~3, 本地运行 cookie.js, 传入上一步的 login_ticket, 获取用于爬虫的 stoken~~
 
+### 环境变量
+名称 | 值 |  备注  
+-|-|-
+COOKIE_STRING | stuid=;stoken=;login_ticket= | 通过抓包自行获取 |
+QY_WECHAT= | `https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=` | 企业微信机器人 URL |
+DEBUG | 1 | 默认 info 级别, DEBUG = 1 则开启 debug 级别日志输出 |
+
 ### 本地运行
-在运行 cookie.js 的时候，控制台会返回一个 cookie string 的命令，直接拷贝到控制台继续运行即可
 ```bash
-COOKIE_STRING='stuid=*******;stoken=****************;login_ticket=********************;' node index.js
+COOKIE_STRING='stuid=*******;stoken=****************;login_ticket=********************;' node dist/index.js
 ```
 
 ## Workflow 运行 (谨慎选择)
