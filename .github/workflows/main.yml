@@ -16,6 +16,7 @@ jobs:
       - name: install packages 
         run: npm install
       - name: run sign
-        run: node dist/index.js
+        run: node dist/main.js
         env:
           COOKIE_STRING: ${{secrets.COOKIE_STRING}}
+          QY_WECHAT: ${{secrets.QY_WECHAT}}
