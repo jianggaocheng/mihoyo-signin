@@ -5,12 +5,25 @@ console.log(`LogLevel: ${logLevel}`);
 
 log4js.configure({
   appenders: {
-    file: { type: 'file', filename: 'log/mihoyo.log', maxLogSize: 10485760, backups: 3, compress: true },
-    console: { type: 'stdout' }
+    file: { 
+      type: 'file', 
+      filename: 'log/mihoyo.log', 
+      maxLogSize: 10485760, 
+      backups: 3, 
+      compress: true
+    },
+    console: { 
+      type: 'stdout'
+    },
+    infoFilter: {
+      type: 'logLevelFilter',
+      appender: 'console',
+      level: logLevel
+    }
   },
   categories: {
     default: { appenders: ['console'], level: 'info' },
-    'mihoyo': { appenders: ['file', 'console'], level: logLevel }
+    'mihoyo': { appenders: ['file', 'infoFilter'], level: 'debug' }
   }
 });
 

@@ -50,7 +50,7 @@ DEBUG | 1 | 默认 info 级别, DEBUG = 1 则开启 debug 级别日志输出 |
 
 ### 本地运行
 ```bash
-COOKIE_STRING='stuid=*******;stoken=****************;login_ticket=********************;' node dist/index.js
+COOKIE_STRING='stuid=*******;stoken=****************;login_ticket=********************;' node dist/main.js
 ```
 
 ## Workflow 运行 (谨慎选择)
