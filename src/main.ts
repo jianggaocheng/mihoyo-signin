@@ -66,8 +66,15 @@ let resultMessage = `**Mihoyo 签到  ${TODAY_DATE}**\n\n`;
       resultMessage += `签到失败: [${e.message}]\n`;
     }
 
+    await utils.randomSleepAsync();
+  }
+
+  // Execute task
+  for (let forum of (ForumData as any).default) {
+    resultMessage += `\n**${forum.name}**\n`
+
     try {
-      // 2 BBS Post
+      // 2 BBS list post
       let resObj = await promiseRetry((retry: any, number: number) => {
         logger.info(`读取帖子列表: [${forum.name}] 尝试次数: ${number}`);
         return miHoYoApi.forumPostList(forum.forumId).catch((e) => {
@@ -81,7 +88,7 @@ let resultMessage = `**Mihoyo 签到  ${TODAY_DATE}**\n\n`;
       for (let post of postList) {
         post = post.post;
 
-        // 2.1 读帖
+        // 2.1 BBS read post
         let resObj = await promiseRetry((retry: any, number: number) => {
           logger.info(`读取帖子: [${post.subject}] 尝试次数: ${number}`);
           return miHoYoApi.forumPostDetail(post['post_id']).catch((e) => {
@@ -93,7 +100,7 @@ let resultMessage = `**Mihoyo 签到  ${TODAY_DATE}**\n\n`;
         logger.info(`${forum.name} [${post.subject}] 读取成功 [${resObj.message}]`);
         await utils.randomSleepAsync();
         
-        // 2.2 点赞
+        // 2.2 BBS vote post
         resObj = await promiseRetry((retry: any, number: number) => {
           logger.info(`点赞帖子: [${post.subject}] 尝试次数: ${number}`);
           return miHoYoApi.forumPostVote(post['post_id']).catch((e) => {
@@ -106,7 +113,7 @@ let resultMessage = `**Mihoyo 签到  ${TODAY_DATE}**\n\n`;
         await utils.randomSleepAsync();
       }
 
-      // 2.3 分享
+      // 2.3 BBS share post
       let sharePost = postList[0].post;
       resObj = await promiseRetry((retry: any, number: number) => {
         logger.info(`分享帖子: [${sharePost.subject}] 尝试次数: ${number}`);
