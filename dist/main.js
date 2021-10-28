@@ -90,8 +90,13 @@ let resultMessage = `**Mihoyo 签到  ${TODAY_DATE}**\n\n`;
             logger_1.default.error(`${forum.name} 签到失败 [${e.message}]`);
             resultMessage += `签到失败: [${e.message}]\n`;
         }
+        yield utils_1.default.randomSleepAsync();
+    }
+    // Execute task
+    for (let forum of ForumData.default) {
+        resultMessage += `\n**${forum.name}**\n`;
         try {
-            // 2 BBS Post
+            // 2 BBS list post
             let resObj = yield promise_retry_1.default((retry, number) => {
                 logger_1.default.info(`读取帖子列表: [${forum.name}] 尝试次数: ${number}`);
                 return miHoYoApi.forumPostList(forum.forumId).catch((e) => {
@@ -103,7 +108,7 @@ let resultMessage = `**Mihoyo 签到  ${TODAY_DATE}**\n\n`;
             let postList = resObj.data.list;
             for (let post of postList) {
                 post = post.post;
-                // 2.1 读帖
+                // 2.1 BBS read post
                 let resObj = yield promise_retry_1.default((retry, number) => {
                     logger_1.default.info(`读取帖子: [${post.subject}] 尝试次数: ${number}`);
                     return miHoYoApi.forumPostDetail(post['post_id']).catch((e) => {
@@ -113,7 +118,7 @@ let resultMessage = `**Mihoyo 签到  ${TODAY_DATE}**\n\n`;
                 }, RETRY_OPTIONS);
                 logger_1.default.info(`${forum.name} [${post.subject}] 读取成功 [${resObj.message}]`);
                 yield utils_1.default.randomSleepAsync();
-                // 2.2 点赞
+                // 2.2 BBS vote post
                 resObj = yield promise_retry_1.default((retry, number) => {
                     logger_1.default.info(`点赞帖子: [${post.subject}] 尝试次数: ${number}`);
                     return miHoYoApi.forumPostVote(post['post_id']).catch((e) => {
@@ -124,7 +129,7 @@ let resultMessage = `**Mihoyo 签到  ${TODAY_DATE}**\n\n`;
                 logger_1.default.info(`${forum.name} [${post.subject}] 点赞成功 [${resObj.message}]`);
                 yield utils_1.default.randomSleepAsync();
             }
-            // 2.3 分享
+            // 2.3 BBS share post
             let sharePost = postList[0].post;
             resObj = yield promise_retry_1.default((retry, number) => {
                 logger_1.default.info(`分享帖子: [${sharePost.subject}] 尝试次数: ${number}`);
