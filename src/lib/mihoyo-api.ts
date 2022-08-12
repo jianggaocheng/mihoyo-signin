@@ -4,7 +4,7 @@ import md5 from 'md5';
 import _ from 'lodash';
 import superagent from 'superagent';
 
-const APP_VERSION = "2.2.0";
+const APP_VERSION = "2.34.1";
 
 export default class MihoYoApi {
   DEVICE_ID = utils.randomString(32).toUpperCase();
@@ -65,19 +65,18 @@ export default class MihoYoApi {
     const timestamp = Math.floor(Date.now() / 1000)
   
     // iOS sign
-    let sign = md5(`salt=b253c83ab2609b1b600eddfe974df47b&t=${timestamp}&r=${randomStr}`);
+    let sign = md5(`salt=9nQiU3AV0rJSIBWgdynfoGMGKaklfbM7&t=${timestamp}&r=${randomStr}`);
 
     return {
       'Cookie': process.env.COOKIE_STRING,
       'Content-Type': 'application/json',
-      'User-Agent': 'Hyperion/67 CFNetwork/1128.0.1 Darwin/19.6.0',
+      'User-Agent': ' miHoYoBBS/2.34.1',
       'Referer': 'https://app.mihoyo.com',
       'x-rpc-channel': 'appstore',
       'x-rpc-device_id': this.DEVICE_ID,
       'x-rpc-app_version': APP_VERSION,
-      'x-rpc-device_model': 'iPhone11,8',
       'x-rpc-device_name': this.DEVICE_NAME,
-      'x-rpc-client_type': '1', // 1 - iOS, 2 - Android, 4 - Web
+      'x-rpc-client_type': '5', // 1 - iOS, 2 - Android, 4 - Web
       'DS': `${timestamp},${randomStr},${sign}`
       // 'DS': `1602569298,k0xfEh,07f4545f5d88eac59cb1257aef74a570`
     }
