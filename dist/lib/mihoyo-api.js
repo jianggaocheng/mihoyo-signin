@@ -25,8 +25,13 @@ class MihoYoApi {
     }
     forumSign(forumId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const url = `https://api-takumi.mihoyo.com/apihub/sapi/signIn?gids=${forumId}`;
-            let res = yield superagent_1.default.post(url).set(this._getHeader()).timeout(10000);
+            const url = "https://api-takumi.mihoyo.com/apihub/app/api/signIn";
+            const signPostData = { gids: forumId };
+            let res = yield superagent_1.default
+                .post(url)
+                .set(this._getHeader("signIn", JSON.stringify(signPostData)))
+                .timeout(10000)
+                .send(JSON.stringify(signPostData));
             let resObj = JSON.parse(res.text);
             logger_1.default.debug(`ForumSign: ${res.text}`);
             return resObj;
@@ -72,23 +77,31 @@ class MihoYoApi {
             return resObj;
         });
     }
-    _getHeader() {
+    _getHeader(task, b) {
         const randomStr = utils_1.default.randomString(6);
         const timestamp = Math.floor(Date.now() / 1000);
-        // iOS sign
-        let sign = md5_1.default(`salt=9nQiU3AV0rJSIBWgdynfoGMGKaklfbM7&t=${timestamp}&r=${randomStr}`);
+        // Android sign
+        let sign = (0, md5_1.default)(`salt=z8DRIUjNDT7IT5IZXvrUAxyupA1peND9&t=${timestamp}&r=${randomStr}`);
+        let DS = `${timestamp},${randomStr},${sign}`;
+        if (task === "signIn") {
+            const randomInt = Math.floor(Math.random() * (200000 - 100001) + 100001);
+            sign = (0, md5_1.default)(`salt=t0qEgfub6cvueAPgR5m9aQWWVciEer7v&t=${timestamp}&r=${randomInt}&b=${b}&q=`);
+            DS = `${timestamp},${randomInt},${sign}`;
+        }
         return {
             'Cookie': process.env.COOKIE_STRING,
-            'Content-Type': 'application/json',
-            'User-Agent': ' miHoYoBBS/2.34.1',
-            'Referer': 'https://app.mihoyo.com',
-            'x-rpc-channel': 'appstore',
-            'x-rpc-device_id': this.DEVICE_ID,
-            'x-rpc-app_version': APP_VERSION,
-            'x-rpc-device_name': this.DEVICE_NAME,
-            'x-rpc-client_type': '5',
-            'DS': `${timestamp},${randomStr},${sign}`
-            // 'DS': `1602569298,k0xfEh,07f4545f5d88eac59cb1257aef74a570`
+            "Content-Type": "application/json",
+            "User-Agent": "okhttp/4.8.0",
+            'Referer': "https://app.mihoyo.com",
+            'Host': "bbs-api.mihoyo.com",
+            "x-rpc-device_id": this.DEVICE_ID,
+            "x-rpc-app_version": APP_VERSION,
+            "x-rpc-device_name": this.DEVICE_NAME,
+            "x-rpc-client_type": "2",
+            "x-rpc-device_model": "Mi 10",
+            "x-rpc-channel": "miyousheluodi",
+            "x-rpc-sys_version": "6.0.1",
+            DS,
         };
     }
 }

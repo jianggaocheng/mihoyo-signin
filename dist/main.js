@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -41,8 +45,8 @@ const mihoyo_api_1 = __importDefault(require("./lib/mihoyo-api"));
 const ForumData = __importStar(require("./data.json"));
 // 0. Golbal init
 // Date
-const START = moment_1.default().unix();
-const TODAY_DATE = moment_1.default().format('YYYY-MM-DD');
+const START = (0, moment_1.default)().unix();
+const TODAY_DATE = (0, moment_1.default)().format('YYYY-MM-DD');
 const RETRY_OPTIONS = {
     retries: 3,
     minTimeout: 5000,
@@ -76,7 +80,7 @@ let resultMessage = `**Mihoyo 签到  ${TODAY_DATE}**\n\n`;
         resultMessage += `**${forum.name}**\n`;
         try {
             // 1 BBS Sign
-            let resObj = yield promise_retry_1.default((retry, number) => {
+            let resObj = yield (0, promise_retry_1.default)((retry, number) => {
                 logger_1.default.info(`开始签到: [${forum.name}] 尝试次数: ${number}`);
                 return miHoYoApi.forumSign(forum.forumId).catch((e) => {
                     logger_1.default.error(`${forum.name} 签到失败: [${e.message}] 尝试次数: ${number}`);
@@ -97,7 +101,7 @@ let resultMessage = `**Mihoyo 签到  ${TODAY_DATE}**\n\n`;
         resultMessage += `\n**${forum.name}**\n`;
         try {
             // 2 BBS list post
-            let resObj = yield promise_retry_1.default((retry, number) => {
+            let resObj = yield (0, promise_retry_1.default)((retry, number) => {
                 logger_1.default.info(`读取帖子列表: [${forum.name}] 尝试次数: ${number}`);
                 return miHoYoApi.forumPostList(forum.forumId).catch((e) => {
                     logger_1.default.error(`${forum.name} 读取帖子列表失败: [${e.message}] 尝试次数: ${number}`);
@@ -109,7 +113,7 @@ let resultMessage = `**Mihoyo 签到  ${TODAY_DATE}**\n\n`;
             for (let post of postList) {
                 post = post.post;
                 // 2.1 BBS read post
-                let resObj = yield promise_retry_1.default((retry, number) => {
+                let resObj = yield (0, promise_retry_1.default)((retry, number) => {
                     logger_1.default.info(`读取帖子: [${post.subject}] 尝试次数: ${number}`);
                     return miHoYoApi.forumPostDetail(post['post_id']).catch((e) => {
                         logger_1.default.error(`${forum.name} 读取帖子失败: [${e.message}] 尝试次数: ${number}`);
@@ -119,7 +123,7 @@ let resultMessage = `**Mihoyo 签到  ${TODAY_DATE}**\n\n`;
                 logger_1.default.info(`${forum.name} [${post.subject}] 读取成功 [${resObj.message}]`);
                 yield utils_1.default.randomSleepAsync();
                 // 2.2 BBS vote post
-                resObj = yield promise_retry_1.default((retry, number) => {
+                resObj = yield (0, promise_retry_1.default)((retry, number) => {
                     logger_1.default.info(`点赞帖子: [${post.subject}] 尝试次数: ${number}`);
                     return miHoYoApi.forumPostVote(post['post_id']).catch((e) => {
                         logger_1.default.error(`${forum.name} 点赞帖子失败: [${e.message}] 尝试次数: ${number}`);
@@ -131,7 +135,7 @@ let resultMessage = `**Mihoyo 签到  ${TODAY_DATE}**\n\n`;
             }
             // 2.3 BBS share post
             let sharePost = postList[0].post;
-            resObj = yield promise_retry_1.default((retry, number) => {
+            resObj = yield (0, promise_retry_1.default)((retry, number) => {
                 logger_1.default.info(`分享帖子: [${sharePost.subject}] 尝试次数: ${number}`);
                 return miHoYoApi.forumPostShare(sharePost['post_id']).catch((e) => {
                     logger_1.default.error(`${forum.name} 分享帖子失败: [${e.message}] 尝试次数: ${number}`);
@@ -146,7 +150,7 @@ let resultMessage = `**Mihoyo 签到  ${TODAY_DATE}**\n\n`;
         resultMessage += `读帖点赞分享: 成功\n`;
         yield utils_1.default.randomSleepAsync();
     }
-    const END = moment_1.default().unix();
+    const END = (0, moment_1.default)().unix();
     logger_1.default.info(`运行结束, 用时 ${END - START} 秒`);
     resultMessage += `\n用时 ${END - START} 秒`;
     sendReport(resultMessage);
